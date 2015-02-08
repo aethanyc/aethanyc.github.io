@@ -1,0 +1,714 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Introduction to Python Programming Language</title>
+<meta name="author" content="(Ting-Yu Lin)"/>
+
+<link rel="stylesheet" href="../reveal.js/css/reveal.css"/>
+<link rel="stylesheet" href="../reveal.js/css/theme/night.css" id="theme"/>
+<link rel="stylesheet" href="style.css"/>
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section>
+<h1>Introduction to Python Programming Language</h1>
+<h2>Ting-Yu Lin</h2>
+<h2><a href="mailto:tlin@mozilla.com">tlin@mozilla.com</a></h2>
+<h2>October 1, 2014</h2>
+</section>
+
+<section>
+<section id="sec-1" >
+
+<h2>Overview</h2>
+<img src="images/python_logo_official.png" alt="python_logo_official.png" />
+</section>
+<section id="sec-1-1" >
+
+<h3>Background</h3>
+<ul class="org-ul">
+<li>Creator: Guido van Rossum (<a href="https://tech.dropbox.com/2012/12/welcome-guido/">now employed by Dropbox</a>)
+GvR @ OSCON 2006, now age 58
+<img src="images/Guido_van_Rossum_OSCON_2006.jpg" alt="Guido_van_Rossum_OSCON_2006.jpg" width="15%" />
+</li>
+<li>First appeared in 1991 (0.9.0)
+</li>
+<li>Who uses Python? Mozilla, Google, Dropbox, <a href="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-00-introduction-to-computer-science-and-programming-fall-2008/">MIT 6.00</a>, etc. See <a href="http://en.wikipedia.org/wiki/List_of_Python_software">List of Python software</a> for more.
+</li>
+<li>Mercurial. Mozilla Build system and automated testing environment.
+</li>
+</ul>
+</section>
+<section id="sec-1-2" >
+
+<h3>Where does the <i>Python</i> name come from?</h3>
+<ul class="org-ul"><li class="fragment none">It's named after <a href="http://en.wikipedia.org/wiki/Monty_Python%2527s_Flying_Circus">Monty Python's Flying Circus</a>, a British television comedy by BBC from 1969 to 1974, not the snake.<br/><img src="images/Flyingcircus_2.jpg" alt="Flyingcircus_2.jpg" width="30%" />
+</li>
+<li class="fragment none">Python documents prefer to use <i>spam</i>, <i>eggs</i>, and <i>ham</i> instead of traditional <i>foo</i>, <i>bar</i>, and <i>baz</i>.<br/></li></ul>
+</section>
+<section id="sec-1-3" >
+
+<h3>Python consists of:</h3>
+<ul class="org-ul">
+<li>Python core language
+</li>
+<li>Python implementations
+</li>
+<li>Python libraries
+</li>
+</ul>
+</section>
+<section id="sec-1-4" >
+
+<h3>Python core languages (2 vs 3)</h3>
+<ul class="org-ul">
+<li>Python 2
+<ul class="org-ul">
+<li>Python 2.7 will be last major release in 2.x series. Latest 2.7.8.
+</li>
+<li><a href="http://legacy.python.org/dev/peps/pep-0404/">PEP 404 Python 2.8 Un-release Schedule</a>
+</li>
+<li>PEP: Python Enhancement Proposals
+</li>
+<li>Mozilla is using Python 2.7
+</li>
+</ul>
+</li>
+<li>Python 3
+<ul class="org-ul">
+<li>Backward-incompatible, released on December 2008
+</li>
+<li>Python 3 is a polished Python, which is easier for newcomers. Latest 3.4.1.
+</li>
+<li>Default string uses Unicode, print as a function, all classes are 'new' style class, etc.
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-1-5" >
+
+<h3>Python language features</h3>
+<ul class="org-ul">
+<li>Typing system: dynamic, strong
+E.g. '3' + 5 generates <code>TypeError</code> exception
+</li>
+<li>Multi-paradigm programming language
+<ul class="org-ul">
+<li>Object-oriented
+</li>
+<li>Procedural (imperative)
+</li>
+<li>Functional
+</li>
+<li>Reflective
+</li>
+</ul>
+</li>
+<li>Python has a garbage collector. Everything is an object.
+</li>
+</ul>
+</section>
+<section id="sec-1-6" >
+
+<h3>Python implementations</h3>
+<ul class="org-ul">
+<li><a href="http://www.python.org/">CPython</a>: reference implementation. Written in C.
+</li>
+<li><a href="http://pypy.org/">PyPy</a>: implemented in RPython, translated to C. Interpreter has a Just-in-Time compiler.
+</li>
+<li><a href="http://www.jython.org/">Jython</a>: implemented in Java. Run on JVM.
+</li>
+<li><a href="http://ironpython.codeplex.com/">IronPython</a>: implemented in C#. Run on .NET.
+</li>
+</ul>
+</section>
+<section id="sec-1-7" >
+
+<h3>How to edit Python program?</h3>
+<ul class="org-ul">
+<li>Emacs<br  />
+<img src="images/emacs.png" alt="emacs.png" width="15%" />
+</li>
+<li>Vim<br  />
+     <img src="images/Vimlogo.png" alt="Vimlogo.png" />
+</li>
+<li>Sublime Text 2
+</li>
+<li>IDLE IDE (in standard Python distribution)
+</li>
+<li><a href="https://wiki.python.org/moin/PythonEditors">Other editors</a>
+</li>
+</ul>
+</section>
+
+</section>
+<section>
+<section id="sec-2" >
+
+<h2>Basic usage</h2>
+<p>
+The following examples are compatible with Python 2.7
+</p>
+</section>
+<section id="sec-2-1" >
+
+<h3>Python shell</h3>
+<ul class="org-ul">
+<li>Linux and Mac should have Python installed.
+</li>
+<li>Windows: Get Python from the <a href="http://www.python.org/download/">official site</a>, or from <a href="http://www.activestate.com/activepython/downloads">ActivePython</a>.
+</li>
+<li>Just type <code>python</code> in the shell
+<div class="org-src-container">
+
+<pre  class="src src-sh">$ python
+Python 2.7.8 <span style="color: #DCDCCC;">(</span>default, Aug 24 2014, 21:26:19<span style="color: #DCDCCC;">)</span>
+<span style="color: #DCDCCC;">[</span>GCC 4.2.1 Compatible Apple LLVM 5.1 <span style="color: #BFEBBF;">(</span>clang-503.0.40<span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">]</span> on darwin
+Type <span style="color: #CC9393;">"help"</span>, <span style="color: #CC9393;">"copyright"</span>, <span style="color: #CC9393;">"credits"</span> or <span style="color: #CC9393;">"license"</span> for more information.
+&gt;&gt;&gt;
+</pre>
+</div>
+</li>
+<li>ipython: enhancement to python shell
+<ul class="org-ul">
+<li>pip install ipython
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-2-2" >
+
+<h3>Run Python program</h3>
+<ul class="org-ul">
+<li>python hello_world.py
+</li>
+<li>python -c "print 'Hello, Python!'"
+</li>
+<li>python -m SimpleHTTPServer
+</li>
+</ul>
+</section>
+<section id="sec-2-3" >
+
+<h3>Python as a calculator</h3>
+<div class="org-src-container">
+
+<pre  class="src src-python">&gt;&gt;&gt; <span style="color: #DFAF8F;">a</span> = 2     <span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">&lt;type 'int'&gt;</span>
+&gt;&gt;&gt; <span style="color: #DFAF8F;">b</span> = 3.0   <span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">&lt;type 'float'&gt;</span>
+&gt;&gt;&gt; a / b
+0.6666666666666666
+&gt;&gt;&gt; 2/3       <span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">0.6666666666666666 in Python 3</span>
+0
+
+&gt;&gt;&gt; a**100    <span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">a to the power of 100</span>
+1267650600228229401496703205376L
+
+&gt;&gt;&gt; <span style="color: #DCDCCC; font-weight: bold;">help</span><span style="color: #DCDCCC;">(</span><span style="color: #CC9393;">'int'</span><span style="color: #DCDCCC;">)</span>
+Help on <span style="color: #F0DFAF; font-weight: bold;">class</span> <span style="color: #7CB8BB;">int</span> <span style="color: #F0DFAF; font-weight: bold;">in</span> module __builtin__:
+
+<span style="color: #F0DFAF; font-weight: bold;">class</span> <span style="color: #7CB8BB;">int</span><span style="color: #DCDCCC;">(</span><span style="color: #DCDCCC; font-weight: bold;">object</span><span style="color: #DCDCCC;">)</span>
+ |  <span style="color: #DCDCCC; font-weight: bold;">int</span><span style="color: #DCDCCC;">(</span>x<span style="color: #BFEBBF;">[</span>, base<span style="color: #BFEBBF;">]</span><span style="color: #DCDCCC;">)</span> -&gt; integer
+...
+</pre>
+</div>
+</section>
+<section id="sec-2-4" >
+
+<h3>String</h3>
+<ul class="org-ul">
+<li>String is <i>immutable</i>.
+<div class="org-src-container">
+
+<pre  class="src src-python">&gt;&gt;&gt; <span style="color: #DFAF8F;">c</span> = <span style="color: #CC9393;">"abcde"</span> <span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">same as single quote 'abcde'</span>
+&gt;&gt;&gt; <span style="color: #DCDCCC; font-weight: bold;">len</span><span style="color: #DCDCCC;">(</span>c<span style="color: #DCDCCC;">)</span>
+5
+&gt;&gt;&gt; c<span style="color: #DCDCCC;">[</span>1<span style="color: #DCDCCC;">]</span>  <span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">Python use 0-based indexing</span>
+<span style="color: #CC9393;">'b'</span>
+&gt;&gt;&gt; c<span style="color: #DCDCCC;">[</span>1:3<span style="color: #DCDCCC;">]</span>
+<span style="color: #CC9393;">'bc'</span>
+
+&gt;&gt;&gt; <span style="color: #F0DFAF; font-weight: bold;">print</span> <span style="color: #CC9393;">'integer: {}, float: {}'</span>.<span style="color: #DCDCCC; font-weight: bold;">format</span><span style="color: #DCDCCC;">(</span>3, 5.12<span style="color: #DCDCCC;">)</span>
+integer: 3, <span style="color: #DCDCCC; font-weight: bold;">float</span>: 5.120000
+
+&gt;&gt;&gt; <span style="color: #CC9393;">'3'</span> + 5
+Traceback <span style="color: #DCDCCC;">(</span>most recent call last<span style="color: #DCDCCC;">)</span>:
+  File <span style="color: #CC9393;">"&lt;stdin&gt;"</span>, line 1, <span style="color: #F0DFAF; font-weight: bold;">in</span> &lt;module&gt;
+<span style="color: #7CB8BB;">TypeError</span>: cannot concatenate <span style="color: #CC9393;">'str'</span> <span style="color: #F0DFAF; font-weight: bold;">and</span> <span style="color: #CC9393;">'int'</span> objects
+</pre>
+</div>
+</li>
+</ul>
+</section>
+<section id="sec-2-5" >
+
+<h3>List</h3>
+<ul class="org-ul">
+<li>List is mutable.
+<div class="org-src-container">
+
+<pre  class="src src-python">&gt;&gt;&gt; <span style="color: #DFAF8F;">d</span> = <span style="color: #DCDCCC;">[</span>a, b, c<span style="color: #DCDCCC;">]</span>
+&gt;&gt;&gt; d
+<span style="color: #DCDCCC;">[</span>2, 3.0, <span style="color: #CC9393;">'abcde'</span><span style="color: #DCDCCC;">]</span>
+
+&gt;&gt;&gt; d<span style="color: #DCDCCC;">[</span>0<span style="color: #DCDCCC;">]</span>
+2
+
+&gt;&gt;&gt; d<span style="color: #DCDCCC;">[</span>1:<span style="color: #DCDCCC;">]</span> + <span style="color: #DCDCCC;">[</span><span style="color: #BFEBBF;">[</span><span style="color: #CC9393;">'foo'</span>, <span style="color: #CC9393;">'bar'</span><span style="color: #BFEBBF;">]</span>, 123<span style="color: #DCDCCC;">]</span>
+<span style="color: #DCDCCC;">[</span>3.0, <span style="color: #CC9393;">'abcde'</span>, <span style="color: #BFEBBF;">[</span><span style="color: #CC9393;">'foo'</span>, <span style="color: #CC9393;">'bar'</span><span style="color: #BFEBBF;">]</span>, 123<span style="color: #DCDCCC;">]</span>
+
+&gt;&gt;&gt; <span style="color: #DCDCCC; font-weight: bold;">range</span><span style="color: #DCDCCC;">(</span>10<span style="color: #DCDCCC;">)</span>
+<span style="color: #DCDCCC;">[</span>0, 1, 2, 3, 4, 5, 6, 7, 8, 9<span style="color: #DCDCCC;">]</span>
+
+&gt;&gt;&gt; <span style="color: #CC9393;">"1 2 3 4 5"</span>.split<span style="color: #DCDCCC;">()</span>
+<span style="color: #DCDCCC;">[</span><span style="color: #CC9393;">'1'</span>, <span style="color: #CC9393;">'2'</span>, <span style="color: #CC9393;">'3'</span>, <span style="color: #CC9393;">'4'</span>, <span style="color: #CC9393;">'5'</span><span style="color: #DCDCCC;">]</span>
+</pre>
+</div>
+</li>
+</ul>
+</section>
+<section id="sec-2-6" >
+
+<h3>Variables</h3>
+<ul class="org-ul">
+<li>All variables in Python are references, not values.
+<div class="org-src-container">
+
+<pre  class="src src-python">&gt;&gt;&gt; <span style="color: #DFAF8F;">x</span> = <span style="color: #DCDCCC;">[</span>0, 1, 2, 3<span style="color: #DCDCCC;">]</span>
+&gt;&gt;&gt; <span style="color: #DFAF8F;">y</span> = x
+&gt;&gt;&gt; <span style="color: #DFAF8F;">y</span><span style="color: #DCDCCC;">[</span>0<span style="color: #DCDCCC;">]</span> = <span style="color: #CC9393;">'ha'</span>
+&gt;&gt;&gt; x
+<span style="color: #DCDCCC;">[</span><span style="color: #CC9393;">'ha'</span>, 1, 2, 3<span style="color: #DCDCCC;">]</span>
+</pre>
+</div>
+</li>
+</ul>
+</section>
+<section id="sec-2-7" >
+
+<h3>Control structures</h3>
+<ul class="org-ul">
+<li>White spaces in Python are significant.
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">f</span><span style="color: #DCDCCC;">(</span>n<span style="color: #DCDCCC;">)</span>:
+..<span style="color: #F0DFAF; font-weight: bold;">for</span> x <span style="color: #F0DFAF; font-weight: bold;">in</span> <span style="color: #DCDCCC; font-weight: bold;">range</span><span style="color: #DCDCCC;">(</span>n<span style="color: #DCDCCC;">)</span>:
+....<span style="color: #F0DFAF; font-weight: bold;">if</span> x % 2 == 0:
+......<span style="color: #F0DFAF; font-weight: bold;">print</span> x, <span style="color: #CC9393;">'is even.'</span>
+....<span style="color: #F0DFAF; font-weight: bold;">else</span>:
+......<span style="color: #F0DFAF; font-weight: bold;">print</span> x, <span style="color: #CC9393;">'is odd.'</span>
+..<span style="color: #F0DFAF; font-weight: bold;">else</span>:                      <span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">Run if the for loop is not break</span>
+......<span style="color: #F0DFAF; font-weight: bold;">print</span> <span style="color: #CC9393;">'ok'</span>
+..<span style="color: #F0DFAF; font-weight: bold;">return</span> <span style="color: #DCDCCC;">(</span><span style="color: #CC9393;">'a'</span>, <span style="color: #CC9393;">'b'</span>, <span style="color: #CC9393;">'c'</span><span style="color: #DCDCCC;">)</span>     <span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">Return a tuple</span>
+</pre>
+</div>
+</li>
+</ul>
+</section>
+<section id="sec-2-8" >
+
+<h3>Tuple</h3>
+<ul class="org-ul"><li class="fragment none">Tuple is <i>immutable</i>.<br/><div class="org-src-container">
+
+<pre  class="src src-python">&gt;&gt;&gt; <span style="color: #DFAF8F;">x</span> = f<span style="color: #DCDCCC;">(</span>4<span style="color: #DCDCCC;">)</span>
+0 <span style="color: #F0DFAF; font-weight: bold;">is</span> even.
+1 <span style="color: #F0DFAF; font-weight: bold;">is</span> odd.
+2 <span style="color: #F0DFAF; font-weight: bold;">is</span> even.
+3 <span style="color: #F0DFAF; font-weight: bold;">is</span> odd.
+ok
+
+&gt;&gt;&gt; x
+<span style="color: #DCDCCC;">(</span><span style="color: #CC9393;">'a'</span>, <span style="color: #CC9393;">'b'</span>, <span style="color: #CC9393;">'c'</span><span style="color: #DCDCCC;">)</span>
+
+&gt;&gt;&gt; <span style="color: #DFAF8F;">a</span>, <span style="color: #DFAF8F;">b</span>, <span style="color: #DFAF8F;">c</span> = x     <span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">Tuple unpacking</span>
+&gt;&gt;&gt; a
+<span style="color: #CC9393;">'a'</span>
+</pre>
+</div>
+</li>
+<li class="fragment none">Tuple is like list. Why invent two similar types?<br/></li></ul>
+</section>
+<section id="sec-2-9" >
+
+<h3>Dictionary</h3>
+<ul class="org-ul"><li class="fragment none">Mapping from key to value. Keys must be immutable.<br/><div class="org-src-container">
+
+<pre  class="src src-python">&gt;&gt;&gt; <span style="color: #DFAF8F;">e</span> = <span style="color: #DCDCCC;">{</span><span style="color: #CC9393;">'Alice'</span>: 9372, <span style="color: #CC9393;">'Bob'</span>: 138, <span style="color: #CC9393;">'Carol'</span>: 7347<span style="color: #DCDCCC;">}</span>
+
+&gt;&gt;&gt; <span style="color: #F0DFAF; font-weight: bold;">for</span> <span style="color: #DCDCCC;">(</span>key, val<span style="color: #DCDCCC;">)</span> <span style="color: #F0DFAF; font-weight: bold;">in</span> e.items<span style="color: #DCDCCC;">()</span>:
+...   <span style="color: #F0DFAF; font-weight: bold;">print</span> key, <span style="color: #CC9393;">' -&gt;'</span>, val
+...
+
+Bob -&gt; 138
+Alice -&gt; 9372
+Carol -&gt; 7347
+</pre>
+</div>
+</li></ul>
+</section>
+<section id="sec-2-10" >
+
+<h3>List comprehension</h3>
+<div class="org-src-container">
+
+<pre  class="src src-python">&gt;&gt;&gt; <span style="color: #DFAF8F;">x</span> = <span style="color: #DCDCCC;">[]</span>
+&gt;&gt;&gt; <span style="color: #F0DFAF; font-weight: bold;">for</span> i <span style="color: #F0DFAF; font-weight: bold;">in</span> <span style="color: #DCDCCC; font-weight: bold;">range</span><span style="color: #DCDCCC;">(</span>10<span style="color: #DCDCCC;">)</span>:
+...   x.append<span style="color: #DCDCCC;">(</span>i**2<span style="color: #DCDCCC;">)</span>
+&gt;&gt;&gt; x
+<span style="color: #DCDCCC;">[</span>0, 1, 4, 9, 16, 25, 36, 49, 64, 81<span style="color: #DCDCCC;">]</span>
+
+&gt;&gt;&gt; <span style="color: #DCDCCC;">[</span>i**2 <span style="color: #F0DFAF; font-weight: bold;">for</span> i <span style="color: #F0DFAF; font-weight: bold;">in</span> <span style="color: #DCDCCC; font-weight: bold;">range</span><span style="color: #BFEBBF;">(</span>10<span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">]</span>
+<span style="color: #DCDCCC;">[</span>0, 1, 4, 9, 16, 25, 36, 49, 64, 81<span style="color: #DCDCCC;">]</span>
+
+&gt;&gt;&gt; <span style="color: #DCDCCC; font-weight: bold;">map</span><span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">lambda</span> i: i**2, <span style="color: #DCDCCC; font-weight: bold;">range</span><span style="color: #BFEBBF;">(</span>10<span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
+<span style="color: #DCDCCC;">[</span>0, 1, 4, 9, 16, 25, 36, 49, 64, 81<span style="color: #DCDCCC;">]</span>
+</pre>
+</div>
+</section>
+<section id="sec-2-11" >
+
+<h3>Boolean</h3>
+<ul class="org-ul"><li class="fragment none"><code>True</code><br/><ul class="org-ul">
+<li><code>not False</code>
+</li>
+<li><code>[1, 2, 3] and True</code>
+</li>
+<li><code>False or {"Bob": 138}</code>
+</li>
+</ul>
+</li>
+<li class="fragment none"><code>False</code><br/><ul class="org-ul">
+<li><code>None</code>
+</li>
+<li><code>0</code>
+</li>
+<li>Empty containers <code>[]</code>, <code>{}</code>, <code>()</code>, etc.
+</li>
+</ul>
+</li></ul>
+</section>
+<section id="sec-2-12" >
+
+<h3>Modules</h3>
+<ul class="org-ul"><li class="fragment none">If the file name is <code>module_name.py</code>, use <code>import module_name</code><br/><div class="org-src-container">
+
+<pre  class="src src-python">&gt;&gt;&gt; <span style="color: #F0DFAF; font-weight: bold;">import</span> random
+&gt;&gt;&gt; random.randint<span style="color: #DCDCCC;">(</span>1, 100<span style="color: #DCDCCC;">)</span> <span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">Range from [1, 100]</span>
+43
+
+&gt;&gt;&gt; <span style="color: #F0DFAF; font-weight: bold;">import</span> itertools
+&gt;&gt;&gt; <span style="color: #DCDCCC; font-weight: bold;">list</span><span style="color: #DCDCCC;">(</span>itertools.combinations<span style="color: #BFEBBF;">(</span><span style="color: #CC9393;">'abcd'</span>, 3<span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
+<span style="color: #DCDCCC;">[</span><span style="color: #BFEBBF;">(</span><span style="color: #CC9393;">'a'</span>, <span style="color: #CC9393;">'b'</span>, <span style="color: #CC9393;">'c'</span><span style="color: #BFEBBF;">)</span>, <span style="color: #BFEBBF;">(</span><span style="color: #CC9393;">'a'</span>, <span style="color: #CC9393;">'b'</span>, <span style="color: #CC9393;">'d'</span><span style="color: #BFEBBF;">)</span>, <span style="color: #BFEBBF;">(</span><span style="color: #CC9393;">'a'</span>, <span style="color: #CC9393;">'c'</span>, <span style="color: #CC9393;">'d'</span><span style="color: #BFEBBF;">)</span>, <span style="color: #BFEBBF;">(</span><span style="color: #CC9393;">'b'</span>, <span style="color: #CC9393;">'c'</span>, <span style="color: #CC9393;">'d'</span><span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">]</span>
+</pre>
+</div>
+</li>
+<li class="fragment none">How to distinguish executable and module?<br/><div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #F0DFAF; font-weight: bold;">if</span> <span style="color: #DCDCCC; font-weight: bold;">__name__</span> == <span style="color: #CC9393;">'__main__'</span>:
+    <span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">Do something when this file is executed as a program.</span>
+</pre>
+</div>
+</li></ul>
+</section>
+<section id="sec-2-13" >
+
+<h3>Example: Quick sort</h3>
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">qsort</span><span style="color: #DCDCCC;">(</span>lst<span style="color: #DCDCCC;">)</span>:
+    <span style="color: #CC9393;">"""This implements quick sort."""</span>
+    <span style="color: #F0DFAF; font-weight: bold;">if</span> lst == <span style="color: #DCDCCC;">[]</span>:
+        <span style="color: #F0DFAF; font-weight: bold;">return</span> <span style="color: #DCDCCC;">[]</span>
+
+    <span style="color: #DFAF8F;">pivot</span> = lst<span style="color: #DCDCCC;">[</span>0<span style="color: #DCDCCC;">]</span>
+    <span style="color: #DFAF8F;">smaller</span> = qsort<span style="color: #DCDCCC;">(</span><span style="color: #BFEBBF;">[</span>x <span style="color: #F0DFAF; font-weight: bold;">for</span> x <span style="color: #F0DFAF; font-weight: bold;">in</span> lst<span style="color: #D0BF8F;">[</span>1:<span style="color: #D0BF8F;">]</span> <span style="color: #F0DFAF; font-weight: bold;">if</span> x &lt; pivot<span style="color: #BFEBBF;">]</span><span style="color: #DCDCCC;">)</span>
+    <span style="color: #DFAF8F;">bigger</span> = qsort<span style="color: #DCDCCC;">(</span><span style="color: #BFEBBF;">[</span>x <span style="color: #F0DFAF; font-weight: bold;">for</span> x <span style="color: #F0DFAF; font-weight: bold;">in</span> lst<span style="color: #D0BF8F;">[</span>1:<span style="color: #D0BF8F;">]</span> <span style="color: #F0DFAF; font-weight: bold;">if</span> x &gt;= pivot<span style="color: #BFEBBF;">]</span><span style="color: #DCDCCC;">)</span>
+    <span style="color: #F0DFAF; font-weight: bold;">return</span> smaller + <span style="color: #DCDCCC;">[</span>pivot<span style="color: #DCDCCC;">]</span> + bigger
+</pre>
+</div>
+</section>
+<section id="sec-2-14" >
+
+<h3>Decorator motivation</h3>
+<ul class="org-ul">
+<li>Print the function name when it is called.
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">plus3</span><span style="color: #DCDCCC;">(</span>n<span style="color: #DCDCCC;">)</span>:
+    <span style="color: #F0DFAF; font-weight: bold;">return</span> n+3
+
+<span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">times2</span><span style="color: #DCDCCC;">(</span>n<span style="color: #DCDCCC;">)</span>:
+    <span style="color: #F0DFAF; font-weight: bold;">return</span> n*2
+
+&gt;&gt;&gt; plus3<span style="color: #DCDCCC;">(</span>4<span style="color: #DCDCCC;">)</span>
+Calling plus3
+7
+
+&gt;&gt;&gt; times2<span style="color: #DCDCCC;">(</span>3<span style="color: #DCDCCC;">)</span>
+Calling times2
+6
+</pre>
+</div>
+</li>
+</ul>
+</section>
+<section id="sec-2-15" >
+
+<h3>Decorator as a solution</h3>
+<ul class="org-ul">
+<li>Syntax sugar
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #7CB8BB;">@Log</span>
+<span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">plus3</span><span style="color: #DCDCCC;">(</span>n<span style="color: #DCDCCC;">)</span>:
+    <span style="color: #F0DFAF; font-weight: bold;">return</span> n+3
+
+<span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">plus3</span><span style="color: #DCDCCC;">(</span>n<span style="color: #DCDCCC;">)</span>:
+    <span style="color: #F0DFAF; font-weight: bold;">return</span> n+3
+<span style="color: #DFAF8F;">plus3</span> = Log<span style="color: #DCDCCC;">(</span>plus3<span style="color: #DCDCCC;">)</span>
+</pre>
+</div>
+</li>
+</ul>
+</section>
+<section id="sec-2-16" >
+
+<h3>Decorator - Implement Log</h3>
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">Log</span><span style="color: #DCDCCC;">(</span>func<span style="color: #DCDCCC;">)</span>:
+    <span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">logged_func</span><span style="color: #DCDCCC;">(</span>*args, **kwargs<span style="color: #DCDCCC;">)</span>:
+        <span style="color: #F0DFAF; font-weight: bold;">print</span> <span style="color: #CC9393;">"Calling"</span>, func.<span style="color: #DCDCCC; font-weight: bold;">__name__</span>
+        <span style="color: #F0DFAF; font-weight: bold;">return</span> func<span style="color: #DCDCCC;">(</span>*args, **kwargs<span style="color: #DCDCCC;">)</span>
+    <span style="color: #F0DFAF; font-weight: bold;">return</span> logged_func
+
+<span style="color: #F0DFAF; font-weight: bold;">class</span> <span style="color: #7CB8BB;">Log</span><span style="color: #DCDCCC;">(</span><span style="color: #DCDCCC; font-weight: bold;">object</span><span style="color: #DCDCCC;">)</span>:
+    <span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">__init__</span><span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">self</span>, func<span style="color: #DCDCCC;">)</span>:
+        <span style="color: #F0DFAF; font-weight: bold;">self</span>.f = func
+
+    <span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">__call__</span><span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">self</span>, *args, **kwargs<span style="color: #DCDCCC;">)</span>:
+        <span style="color: #F0DFAF; font-weight: bold;">print</span> <span style="color: #CC9393;">'Calling'</span>, <span style="color: #F0DFAF; font-weight: bold;">self</span>.f.<span style="color: #DCDCCC; font-weight: bold;">__name__</span>
+        <span style="color: #F0DFAF; font-weight: bold;">return</span> <span style="color: #F0DFAF; font-weight: bold;">self</span>.f<span style="color: #DCDCCC;">(</span>*args, **kwargs<span style="color: #DCDCCC;">)</span>
+</pre>
+</div>
+</section>
+<section id="sec-2-17" >
+
+<h3>Python Libraries</h3>
+<ul class="org-ul">
+<li>batteries included: <code>os</code>, <code>re</code>, <code>sqlite3</code>, <code>json</code>, etc.
+</li>
+<li>matplotlib, pycario
+</li>
+<li>Most of the third party libraries support Python 3
+<ul class="org-ul">
+<li><a href="http://python3wos.appspot.com/">Python 3 Wall of Superpowers</a>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-2-18" >
+
+<h3>What happened if typing <code>import this</code> in the Python interpreter?</h3>
+<ul class="org-ul"><li class="fragment none">import this<br/><div class="org-src-container">
+
+<pre  class="src src-python">&gt;&gt;&gt; <span style="color: #F0DFAF; font-weight: bold;">import</span> this
+The Zen of Python, by Tim Peters
+
+Beautiful <span style="color: #F0DFAF; font-weight: bold;">is</span> better than ugly.
+Explicit <span style="color: #F0DFAF; font-weight: bold;">is</span> better than implicit.
+Simple <span style="color: #F0DFAF; font-weight: bold;">is</span> better than <span style="color: #DCDCCC; font-weight: bold;">complex</span>.
+Complex <span style="color: #F0DFAF; font-weight: bold;">is</span> better than complicated.
+Flat <span style="color: #F0DFAF; font-weight: bold;">is</span> better than nested.
+Sparse <span style="color: #F0DFAF; font-weight: bold;">is</span> better than dense.
+Readability counts.
+
+...
+<span style="color: #DCDCCC;">[</span>skip 12 lines<span style="color: #DCDCCC;">]</span>
+</pre>
+</div>
+</li>
+<li class="fragment none"><a href="http://www.python.org/dev/peps/pep-0020/">PEP 20 &#x2013; The Zen of Python</a><br/></li></ul>
+
+</section>
+<section id="sec-2-19" >
+
+<h3>How to debug Python programs?</h3>
+<ul class="org-ul"><li class="fragment none">pdb<br/><ul class="org-ul">
+<li><code>python -m pdb some_prog.py</code>
+</li>
+<li>Insert <code>import pdb; pdb.set_trace()</code>
+</li>
+</ul>
+</li>
+<li class="fragment none">ipdb<br/><ul class="org-ul">
+<li>pip install ipdb
+</li>
+<li>Insert <code>import ipdb; ipdb.set_trace()</code>
+</li>
+</ul>
+</li>
+<li class="fragment none"><a href="https://zapier.com/engineering/debugging-python-boss/">Debugging Python Like a Boss</a><br/></li></ul>
+</section>
+</section>
+<section>
+<section id="sec-3" >
+
+<h2>Dynamic features</h2>
+<img src="images/duck.jpg" alt="duck.jpg" />
+</section>
+<section id="sec-3-1" >
+
+<h3>Duck typing</h3>
+<ul class="org-ul"><li class="fragment none">Duck typing allows polymorphism without inheritance!<br/><div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #F0DFAF; font-weight: bold;">class</span> <span style="color: #7CB8BB;">Duck</span>:
+  <span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">speak</span><span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">self</span><span style="color: #DCDCCC;">)</span>:
+    <span style="color: #F0DFAF; font-weight: bold;">print</span> <span style="color: #CC9393;">'Quack!'</span>
+
+<span style="color: #F0DFAF; font-weight: bold;">class</span> <span style="color: #7CB8BB;">Cat</span>:
+  <span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">speak</span><span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">self</span><span style="color: #DCDCCC;">)</span>:
+    <span style="color: #F0DFAF; font-weight: bold;">print</span> <span style="color: #CC9393;">'Meow!'</span>
+
+<span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">happy</span><span style="color: #DCDCCC;">(</span>x<span style="color: #DCDCCC;">)</span>:
+  x.speak<span style="color: #DCDCCC;">()</span>
+
+&gt;&gt;&gt; <span style="color: #DFAF8F;">d</span> = Duck<span style="color: #DCDCCC;">()</span>
+&gt;&gt;&gt; <span style="color: #DFAF8F;">c</span> = Cat<span style="color: #DCDCCC;">()</span>
+&gt;&gt;&gt; happy<span style="color: #DCDCCC;">(</span>d<span style="color: #DCDCCC;">)</span>
+Quack!
+&gt;&gt;&gt; happy<span style="color: #DCDCCC;">(</span>c<span style="color: #DCDCCC;">)</span>
+Meow!
+</pre>
+</div>
+</li>
+<li class="fragment none">Usually inherit for implementation, not for interface.<br/></li>
+<li class="fragment none">Provided you can perform the job, we don't care who your parents are.<br/></li></ul>
+</section>
+<section id="sec-3-2" >
+
+<h3>Reflection</h3>
+<ul class="org-ul"><li class="fragment none">The program can observe and modify its own structure and behavior at runtime.<br/><div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #F0DFAF; font-weight: bold;">class</span> <span style="color: #7CB8BB;">C</span><span style="color: #DCDCCC;">(</span><span style="color: #DCDCCC; font-weight: bold;">object</span><span style="color: #DCDCCC;">)</span>:
+    <span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">f</span><span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">self</span><span style="color: #DCDCCC;">)</span>:
+        <span style="color: #F0DFAF; font-weight: bold;">print</span> <span style="color: #CC9393;">'f()'</span>
+
+&gt;&gt;&gt; <span style="color: #DFAF8F;">c</span> = C<span style="color: #DCDCCC;">()</span>
+&gt;&gt;&gt; <span style="color: #DCDCCC; font-weight: bold;">dir</span><span style="color: #DCDCCC;">(</span>c<span style="color: #DCDCCC;">)</span>
+<span style="color: #DCDCCC;">[</span><span style="color: #CC9393;">'__class__'</span>, <span style="color: #CC9393;">'__delattr__'</span>, <span style="color: #CC9393;">'__dict__'</span>, <span style="color: #CC9393;">'__doc__'</span>, ..., <span style="color: #CC9393;">'f'</span><span style="color: #DCDCCC;">]</span>
+
+&gt;&gt;&gt; <span style="color: #DFAF8F;">c.val</span> = 123
+&gt;&gt;&gt; <span style="color: #DCDCCC; font-weight: bold;">dir</span><span style="color: #DCDCCC;">(</span>c<span style="color: #DCDCCC;">)</span>
+<span style="color: #DCDCCC;">[</span><span style="color: #CC9393;">'__class__'</span>, <span style="color: #CC9393;">'__delattr__'</span>, <span style="color: #CC9393;">'__dict__'</span>, <span style="color: #CC9393;">'__doc__'</span>, ..., <span style="color: #CC9393;">'f'</span>, <span style="color: #CC9393;">'val'</span><span style="color: #DCDCCC;">]</span>
+
+&gt;&gt;&gt; c.g<span style="color: #DCDCCC;">()</span>
+Traceback <span style="color: #DCDCCC;">(</span>most recent call last<span style="color: #DCDCCC;">)</span>:
+  File <span style="color: #CC9393;">"&lt;stdin&gt;"</span>, line 1, <span style="color: #F0DFAF; font-weight: bold;">in</span> &lt;module&gt;
+<span style="color: #7CB8BB;">AttributeError</span>: <span style="color: #CC9393;">'C'</span> <span style="color: #DCDCCC; font-weight: bold;">object</span> has no attribute <span style="color: #CC9393;">'g'</span>
+&gt;&gt;&gt; <span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">g</span><span style="color: #DCDCCC;">()</span>: <span style="color: #F0DFAF; font-weight: bold;">print</span> <span style="color: #CC9393;">'g()'</span>
+&gt;&gt;&gt; <span style="color: #DFAF8F;">c.g</span> = g
+&gt;&gt;&gt; c.g<span style="color: #DCDCCC;">()</span>
+g<span style="color: #DCDCCC;">()</span>
+</pre>
+</div>
+</li></ul>
+</section>
+
+</section>
+<section>
+<section id="sec-4" >
+
+<h2>Thank you. Any questions?</h2>
+<ul class="org-ul">
+<li><a href="http://xkcd.com/353/">xkcd: Python</a><br  />
+    <img src="images/python.png" alt="python.png" />
+</li>
+</ul>
+</section>
+
+</section>
+<section>
+<section id="sec-5" >
+
+<h2>References</h2>
+<ul class="org-ul">
+<li><a href="http://docs.python.org/">The official Python Documents</a>: tutorial, library reference, language reference, etc.
+</li>
+</ul>
+</section>
+<section id="sec-5-1" >
+
+<h3>What tools are used to create this presentation?</h3>
+<ul class="org-ul">
+<li><a href="http://en.wikipedia.org/wiki/Emacs">Emacs</a> (<a href="http://emacsrocks.com/">Emacs Rocks!</a>)<br  />
+<img src="images/emacs.png" alt="emacs.png" width="30%" />
+</li>
+<li><a href="http://orgmode.org/">org-mode</a><br  />
+<img src="images/org-mode-unicorn-logo.png" alt="org-mode-unicorn-logo.png" width="30%" />
+</li>
+<li><a href="https://github.com/yjwen/org-reveal">org-reveal</a>
+</li>
+<li><a href="https://github.com/hakimel/reveal.js">reveal.js</a>
+</li>
+</ul>
+</section>
+</section>
+</div>
+</div>
+
+<script src="../reveal.js/lib/js/head.min.js"></script>
+<script src="../reveal.js/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: true,
+center: true,
+slideNumber: true,
+rollingLinks: false,
+keyboard: true,
+overview: true,
+minScale: 0.50,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'fade', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'fast',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: '../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+ { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: '../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+]
+});
+</script>
+</body>
+</html>
