@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>DOM Enlightenment</title>
+<meta name="author" content="(Ting-Yu Lin)"/>
+
+<link rel="stylesheet" href="../reveal.js/css/reveal.css"/>
+<link rel="stylesheet" href="../reveal.js/css/theme/black.css" id="theme"/>
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section>
+<h1>DOM Enlightenment</h1>
+<h2>Ting-Yu Lin</h2>
+<h2><a href="mailto:tlin@mozilla.com">tlin@mozilla.com</a></h2>
+<h2>February 9, 2015</h2>
+</section>
+
+<section>
+<section id="sec-1" >
+
+<h2>Overview</h2>
+<ul class="org-ul">
+<li><a href="http://domenlightenment.com/">Free online version</a>
+</li>
+<li>Target developers in mind:
+<ul class="org-ul">
+<li>Good at JavaScript or jQuery, but not understand the purpose and value of a library
+</li>
+<li>Scripting HTML document without using any libraries
+</li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section id="sec-2" >
+
+<h2><a href="http://domenlightenment.com/#1">Chapter 1 - Node Overview</a></h2>
+<ul class="org-ul">
+<li>Document Object Model (a.k.a. the DOM) is a hierarchy/tree of JavaScript Node objects
+</li>
+<li>DOCUMENT_NODE, ELEMENT_NODE, TEXT_NODE, etc.
+</li>
+<li>Create, insert, delete, replace, and clone a Node
+</li>
+<li>Traverse a DOM tree
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section id="sec-3" >
+
+<h2><a href="http://domenlightenment.com/#2">Chapter 2 - Document Nodes</a></h2>
+<ul class="org-ul">
+<li>Properties and methods of <code>document</code> Node
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section id="sec-4" >
+
+<h2><a href="http://domenlightenment.com/#3">Chapter 3 - Element Nodes</a></h2>
+<ul class="org-ul">
+<li>HTML*Element Object: HTMLInputElement, HTMLDivElement, etc.
+</li>
+<li>Get, set, remove an Element's attribute
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section id="sec-5" >
+
+<h2><a href="http://domenlightenment.com/#4">Chapter 4 - Element Node Selecting</a></h2>
+<ul class="org-ul">
+<li><code>querySelector()</code>, <code>getElementById()</code>
+</li>
+<li><code>querySelectorAll()</code>, <code>getElementsByTagName()</code>, <code>getElementsByClassName()</code>
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section id="sec-6" >
+
+<h2><a href="http://domenlightenment.com/#5">Chapter 5 - Element Node Geometry &amp; Scrolling Geometry</a></h2>
+<ul class="org-ul">
+<li><code>getBoundingClientRect()</code>
+</li>
+<li><code>element.height</code>, <code>element.width</code>
+</li>
+<li><code>element.scrollHeight</code>, <code>element.scrollWidth</code>, etc.
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section id="sec-7" >
+
+<h2><a href="http://domenlightenment.com/#6">Chapter 6 - Element Node Inline Styles</a></h2>
+<ul class="org-ul">
+<li>Element style attribute (a.k.a. Inline CSS properties)
+</li>
+<li>Each CSS property represented as a property of <code>style</code> object
+</li>
+<li><code>getComputedStyle()</code>
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section id="sec-8" >
+
+<h2><a href="http://domenlightenment.com/#7">Chapter 7 - Text Nodes</a></h2>
+<ul class="org-ul">
+<li>Properties and methods of <code>Text</code> Node
+</li>
+<li><code>createTextNode()</code>
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section id="sec-9" >
+
+<h2><a href="http://domenlightenment.com/#8">Chapter 8 - DocumentFragment Nodes</a></h2>
+<ul class="org-ul">
+<li>Lightweight document DOM in memory
+</li>
+<li>Manipulate DOM elements without changing the live DOM
+</li>
+<li><code>document.createDocumentFragment()</code>
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section id="sec-10" >
+
+<h2><a href="http://domenlightenment.com/#9">Chapter 9 - CSS Style Sheets &amp; CSS rules</a></h2>
+<ul class="org-ul">
+<li><code>document.styleSheets</code>, <code>CSSStyleSheet</code> Node
+</li>
+<li>Insert, delete, edit style
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section id="sec-11" >
+
+<h2><a href="http://domenlightenment.com/#10">Chapter 10 - JavaScript in the DOM</a></h2>
+<ul class="org-ul">
+<li><code>&lt;script&gt;</code>
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section id="sec-12" >
+
+<h2><a href="http://domenlightenment.com/#11">Chapter 11 - DOM Events</a></h2>
+<ul class="org-ul">
+<li><code>addEventListener</code>, <code>removeEventListener</code>
+</li>
+<li>Event flow: <i>captureing</i> phase, <i>target</i> phase, <i>bubbling</i> phase
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section id="sec-13" >
+
+<h2><a href="http://domenlightenment.com/#12">Chapter 12 - Creating dom.js - a wishful jQuery inspired DOM Library for modern browers</a></h2>
+<ul class="org-ul">
+<li><a href="https://github.com/codylindley/domjs">https://github.com/codylindley/domjs</a>
+</li>
+</ul>
+</section>
+</section>
+</div>
+</div>
+
+<script src="../reveal.js/lib/js/head.min.js"></script>
+<script src="../reveal.js/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: true,
+center: true,
+slideNumber: true,
+rollingLinks: false,
+keyboard: true,
+overview: true,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'fade', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'fast',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: '../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+ { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: '../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+]
+});
+</script>
+</body>
+</html>

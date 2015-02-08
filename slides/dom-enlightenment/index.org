@@ -1,0 +1,57 @@
+#+STARTUP: showeverything hidestars
+#+TITLE: DOM Enlightenment
+#+AUTHOR: Ting-Yu Lin
+#+EMAIL: tlin@mozilla.com
+#+DATE: February 9, 2015
+
+#+OPTIONS: reveal_history:t
+#+OPTIONS: H:2 toc:nil num:nil ^:{}
+#+REVEAL_HLEVEL: 1
+#+REVEAL_SPEED: fast
+#+REVEAL_TRANS: fade
+#+REVEAL_THEME: black
+#+REVEAL_ROOT: ../reveal.js
+
+* Overview
+- [[http://domenlightenment.com/][Free online version]]
+- Target developers in mind:
+  - Good at JavaScript or jQuery, but not understand the purpose and value of a library
+  - Scripting HTML document without using any libraries
+* [[http://domenlightenment.com/#1][Chapter 1 - Node Overview]]
+- Document Object Model (a.k.a. the DOM) is a hierarchy/tree of JavaScript Node objects
+- DOCUMENT_NODE, ELEMENT_NODE, TEXT_NODE, etc.
+- Create, insert, delete, replace, and clone a Node
+- Traverse a DOM tree
+* [[http://domenlightenment.com/#2][Chapter 2 - Document Nodes]]
+- Properties and methods of ~document~ Node
+* [[http://domenlightenment.com/#3][Chapter 3 - Element Nodes]]
+- HTML*Element Object: HTMLInputElement, HTMLDivElement, etc.
+- Get, set, remove an Element's attribute
+* [[http://domenlightenment.com/#4][Chapter 4 - Element Node Selecting]]
+- ~querySelector()~, ~getElementById()~
+- ~querySelectorAll()~, ~getElementsByTagName()~, ~getElementsByClassName()~
+* [[http://domenlightenment.com/#5][Chapter 5 - Element Node Geometry & Scrolling Geometry]]
+- ~getBoundingClientRect()~
+- ~element.height~, ~element.width~
+- ~element.scrollHeight~, ~element.scrollWidth~, etc.
+* [[http://domenlightenment.com/#6][Chapter 6 - Element Node Inline Styles]]
+- Element style attribute (a.k.a. Inline CSS properties)
+- Each CSS property represented as a property of ~style~ object
+- ~getComputedStyle()~
+* [[http://domenlightenment.com/#7][Chapter 7 - Text Nodes]]
+- Properties and methods of ~Text~ Node
+- ~createTextNode()~
+* [[http://domenlightenment.com/#8][Chapter 8 - DocumentFragment Nodes]]
+- Lightweight document DOM in memory
+- Manipulate DOM elements without changing the live DOM
+- ~document.createDocumentFragment()~
+* [[http://domenlightenment.com/#9][Chapter 9 - CSS Style Sheets & CSS rules]]
+- ~document.styleSheets~, ~CSSStyleSheet~ Node
+- Insert, delete, edit style
+* [[http://domenlightenment.com/#10][Chapter 10 - JavaScript in the DOM]]
+- ~<script>~
+* [[http://domenlightenment.com/#11][Chapter 11 - DOM Events]]
+- ~addEventListener~, ~removeEventListener~
+- Event flow: /captureing/ phase, /target/ phase, /bubbling/ phase
+* [[http://domenlightenment.com/#12][Chapter 12 - Creating dom.js - a wishful jQuery inspired DOM Library for modern browers]]
+- https://github.com/codylindley/domjs
