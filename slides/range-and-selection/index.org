@@ -1,0 +1,74 @@
+#+STARTUP: showeverything hidestars
+#+TITLE: DOM Range and Selection
+#+AUTHOR: Ting-Yu Lin
+#+EMAIL: tlin@mozilla.com
+#+DATE: May 11, 2015
+
+#+OPTIONS: reveal_history:t
+#+OPTIONS: H:1 toc:nil num:nil ^:{}
+#+REVEAL_HLEVEL: 1
+#+REVEAL_SPEED: fast
+#+REVEAL_TRANS: fade
+#+REVEAL_THEME: black
+#+REVEAL_ROOT: ../reveal.js
+#+REVEAL_EXTRA_CSS: override.css
+
+* Why do I need to learn range and selection?
+[[file:images/carets.png]]
+* What is a ~Range~ object?
+- A sequence of content within a node tree.
+- Each range has a *start* and an *end* which are boundary points.
+- A boundary point is a tuple consisting of a *node* and a non-negative numeric
+  *offset*.
+- 0 <= *offset* <= node length (number of children)
+* Learn by an example
+- Task: Create a range object from "2" to the image.
+- Warm-up questions: Length of ~<div>~, ~<em>~, ~123~?
+- [[http://goo.gl/7P6LQM][Live DOM tree]]
+#+BEGIN_SRC html
+  <div id="div">123<em>789</em>abc
+  <img src="http://mozilla.com.tw/media/img/home/firefox.png">
+  </div>
+#+END_SRC
+#+BEGIN_HTML
+  <div id="div">123<em>789</em>abc<img src="http://mozilla.com.tw/media/img/home/firefox.png"></div>
+#+END_HTML
+* Back to the task
+- Task: Create a range object from "2" to the image.
+- start: div's first child, offset 1
+- end: div, offset 4
+  [[file:images/dom-tree.png]]
+- [[http://jsfiddle.net/tpegv271/4/][Live example in JSFiddle]]
+* Range properties
+- node = ~Range.startContainer~
+- offset = ~Range.startOffset~
+- node = ~Range.endContainer~
+- offset = ~Range.endOffset~
+- node = ~Range.commonAncestorContainer~
+- Boolean = ~Range.collapsed~
+* What is a Selection object? (Working Draft)
+- Each selection is associated with a single range
+- Each selection has a direction
+  - Forward: *anchor* node = range start; *focus* node = range end
+  - Backward: *focus* node = range start; *anchor* node = range end
+#+BEGIN_SRC js
+  var selObj = window.getSelection(); // document.getSelection()
+  var range  = selObj.getRangeAt(0); // Why passing argument 0?
+#+END_SRC
+* Selection properties
+- node = ~Selection.anchorNode~
+- offset = ~Selection.anchorOffset~
+- node = ~Selection.focusNode~
+- offset = ~Selection.focusOffset~
+- Boolean = ~Selection.isCollapsed~
+- 0 or 1 = ~Selection.rangeCount~
+* References
+- Range:
+  - [[https://developer.mozilla.org/en-US/docs/Web/API/Range][MDN: Web API Interface: Range]]
+  - [[https://dom.spec.whatwg.org/#ranges][DOM Standard: 5. Ranges]]
+- Selection:
+  - [[https://developer.mozilla.org/en-US/docs/Web/API/Selection][MDN: Web API Interface: Selection]]
+  - [[http://www.w3.org/TR/selection-api/][Selection API Working Draft]]
+- Layout debugger
+  - ~./mach run -layoutdebug~
+

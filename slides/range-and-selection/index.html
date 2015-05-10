@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>DOM Range and Selection</title>
+<meta name="author" content="(Ting-Yu Lin)"/>
+
+<link rel="stylesheet" href="../reveal.js/css/reveal.css"/>
+<link rel="stylesheet" href="../reveal.js/css/theme/black.css" id="theme"/>
+<link rel="stylesheet" href="override.css"/>
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide">
+<h1>DOM Range and Selection</h1>
+<h2>Ting-Yu Lin</h2>
+<h2><a href="mailto:tlin@mozilla.com">tlin@mozilla.com</a></h2>
+<h2>May 11, 2015</h2>
+</section>
+
+<section>
+<section id="slide-sec-1">
+<h2 id="sec-1">Why do I need to learn range and selection?</h2>
+
+<div class="figure">
+<p><img src="images/carets.png" alt="carets.png" />
+</p>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-sec-2">
+<h2 id="sec-2">What is a <code>Range</code> object?</h2>
+<ul>
+<li>A sequence of content within a node tree.</li>
+<li>Each range has a <b>start</b> and an <b>end</b> which are boundary points.</li>
+<li>A boundary point is a tuple consisting of a <b>node</b> and a non-negative numeric
+<b>offset</b>.</li>
+<li>0 &lt;= <b>offset</b> &lt;= node length (number of children)</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-sec-3">
+<h2 id="sec-3">Learn by an example</h2>
+<ul>
+<li>Task: Create a range object from "2" to the image.</li>
+<li>Warm-up questions: Length of <code>&lt;div&gt;</code>, <code>&lt;em&gt;</code>, <code>123</code>?</li>
+<li><a href="http://goo.gl/7P6LQM">Live DOM tree</a></li>
+
+</ul>
+<div class="org-src-container">
+
+<pre  class="src src-html">&lt;<span style="color: #93E0E3;">div</span> <span style="color: #DFAF8F;">id</span>=<span style="color: #CC9393;">"div"</span>&gt;123&lt;<span style="color: #93E0E3;">em</span>&gt;<span style="font-style: italic;">789</span>&lt;/<span style="color: #93E0E3;">em</span>&gt;abc
+&lt;<span style="color: #93E0E3;">img</span> <span style="color: #DFAF8F;">src</span>=<span style="color: #CC9393;">"http://mozilla.com.tw/media/img/home/firefox.png"</span>&gt;
+&lt;/<span style="color: #93E0E3;">div</span>&gt;
+</pre>
+</div>
+<div id="div">123<em>789</em>abc<img src="http://mozilla.com.tw/media/img/home/firefox.png"></div>
+</section>
+</section>
+<section>
+<section id="slide-sec-4">
+<h2 id="sec-4">Back to the task</h2>
+<ul>
+<li>Task: Create a range object from "2" to the image.</li>
+<li>start: div's first child, offset 1</li>
+<li>end: div, offset 4
+<img src="images/dom-tree.png" alt="dom-tree.png" /></li>
+<li><a href="http://jsfiddle.net/tpegv271/4/">Live example in JSFiddle</a></li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-sec-5">
+<h2 id="sec-5">Range properties</h2>
+<ul>
+<li>node = <code>Range.startContainer</code></li>
+<li>offset = <code>Range.startOffset</code></li>
+<li>node = <code>Range.endContainer</code></li>
+<li>offset = <code>Range.endOffset</code></li>
+<li>node = <code>Range.commonAncestorContainer</code></li>
+<li>Boolean = <code>Range.collapsed</code></li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-sec-6">
+<h2 id="sec-6">What is a Selection object? (Working Draft)</h2>
+<ul>
+<li>Each selection is associated with a single range</li>
+<li>Each selection has a direction
+<ul>
+<li>Forward: <b>anchor</b> node = range start; <b>focus</b> node = range end</li>
+<li>Backward: <b>focus</b> node = range start; <b>anchor</b> node = range end</li>
+
+</ul></li>
+
+</ul>
+<div class="org-src-container">
+
+<pre  class="src src-js"><span style="color: #F0DFAF; font-weight: bold;">var</span> <span style="color: #DFAF8F;">selObj</span> = window.getSelection<span style="color: #DCDCCC;">()</span>; <span style="color: #5F7F5F;">// </span><span style="color: #7F9F7F;">document.getSelection()</span>
+<span style="color: #F0DFAF; font-weight: bold;">var</span> <span style="color: #DFAF8F;">range</span>  = selObj.getRangeAt<span style="color: #DCDCCC;">(</span>0<span style="color: #DCDCCC;">)</span>; <span style="color: #5F7F5F;">// </span><span style="color: #7F9F7F;">Why passing argument 0?</span>
+</pre>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-sec-7">
+<h2 id="sec-7">Selection properties</h2>
+<ul>
+<li>node = <code>Selection.anchorNode</code></li>
+<li>offset = <code>Selection.anchorOffset</code></li>
+<li>node = <code>Selection.focusNode</code></li>
+<li>offset = <code>Selection.focusOffset</code></li>
+<li>Boolean = <code>Selection.isCollapsed</code></li>
+<li>0 or 1 = <code>Selection.rangeCount</code></li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-sec-8">
+<h2 id="sec-8">References</h2>
+<ul>
+<li>Range:
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Range">MDN: Web API Interface: Range</a></li>
+<li><a href="https://dom.spec.whatwg.org/#ranges">DOM Standard: 5. Ranges</a></li>
+
+</ul></li>
+<li>Selection:
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection">MDN: Web API Interface: Selection</a></li>
+<li><a href="http://www.w3.org/TR/selection-api/">Selection API Working Draft</a></li>
+
+</ul></li>
+<li>Layout debugger
+<ul>
+<li><code>./mach run -layoutdebug</code></li>
+
+</ul></li>
+
+</ul>
+</section>
+</section>
+</div>
+</div>
+
+<script src="../reveal.js/lib/js/head.min.js"></script>
+<script src="../reveal.js/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: true,
+center: true,
+slideNumber: true,
+rollingLinks: false,
+keyboard: true,
+overview: true,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'fade', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'fast',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: '../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+ { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: '../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+]
+});
+</script>
+</body>
+</html>

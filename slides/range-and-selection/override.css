@@ -1,0 +1,23 @@
+/* @import url("../reveal.js/lib/css/zenburn.css"); */
+
+body {
+  background-color: #3f3f3f;    /* zenburn background color */
+}
+
+b {
+  color: #ff2c2d;
+}
+
+.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+  text-transform: none;
+}
+
+.reveal pre {
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
+  font-size: 0.7em;
+}
+
+.reveal section img {
+  border: 0;
+  margin-bottom: 0;
+}
