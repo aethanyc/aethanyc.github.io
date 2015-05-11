@@ -2,7 +2,7 @@
 #+TITLE: DOM Range and Selection
 #+AUTHOR: Ting-Yu Lin
 #+EMAIL: tlin@mozilla.com
-#+DATE: May 11, 2015
+#+DATE: May 13, 2015
 
 #+OPTIONS: reveal_history:t
 #+OPTIONS: H:1 toc:nil num:nil ^:{}
