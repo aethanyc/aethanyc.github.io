@@ -136,7 +136,29 @@
 </section>
 <section>
 <section id="slide-sec-8">
-<h2 id="sec-8">References</h2>
+<h2 id="sec-8">-moz-user-select (Not part of any spec)</h2>
+<div class="outline-text-2" id="text-8">
+</div><ul class="org-ul"><li><a id="sec-8-1" name="sec-8-1"></a>Control where the user can select.<br  /></li>
+<li><a id="sec-8-2" name="sec-8-2"></a>Example:<br  /><div class="org-src-container">
+
+<pre  class="src src-html">&lt;<span style="color: #93E0E3;">div</span> <span style="color: #DFAF8F;">style</span>=<span style="color: #CC9393;">"-moz-user-select: none;"</span>&gt;
+  &lt;<span style="color: #93E0E3;">p</span> <span style="color: #DFAF8F;">style</span>=<span style="color: #CC9393;">"-moz-user-select: text;"</span>&gt;You can select me.&lt;/<span style="color: #93E0E3;">p</span>&gt;
+  &lt;<span style="color: #93E0E3;">p</span>&gt;You cannot select me&lt;/<span style="color: #93E0E3;">p</span>&gt;
+  &lt;<span style="color: #93E0E3;">p</span> <span style="color: #DFAF8F;">style</span>=<span style="color: #CC9393;">"-moz-user-select: text;"</span>&gt;You can also select me.&lt;/<span style="color: #93E0E3;">p</span>&gt;
+&lt;/<span style="color: #93E0E3;">div</span>&gt;
+</pre>
+</div>
+<div style="-moz-user-select: none;">
+  <p style="-moz-user-select: text;">You can select me.</p>
+  <p>You cannot select me</p>
+  <p style="-moz-user-select: text;">You can also select me.</p>
+</div>
+</li></ul>
+</section>
+</section>
+<section>
+<section id="slide-sec-9">
+<h2 id="sec-9">References</h2>
 <ul>
 <li>Range:
 <ul>
@@ -148,6 +170,7 @@
 <ul>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection">MDN: Web API Interface: Selection</a></li>
 <li><a href="http://www.w3.org/TR/selection-api/">Selection API Working Draft</a></li>
+<li><a href="https://developer.mozilla.org/zh-TW/docs/Web/CSS/user-select">moz-user-select</a></li>
 
 </ul></li>
 <li>Layout debugger

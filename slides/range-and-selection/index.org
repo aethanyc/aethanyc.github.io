@@ -62,6 +62,23 @@
 - offset = ~Selection.focusOffset~
 - Boolean = ~Selection.isCollapsed~
 - 0 or 1 = ~Selection.rangeCount~
+* -moz-user-select (Not part of any spec)
+** Control where the user can select.
+** Example:
+#+BEGIN_SRC html
+  <div style="-moz-user-select: none;">
+    <p style="-moz-user-select: text;">You can select me.</p>
+    <p>You cannot select me</p>
+    <p style="-moz-user-select: text;">You can also select me.</p>
+  </div>
+#+END_SRC
+#+BEGIN_HTML
+  <div style="-moz-user-select: none;">
+    <p style="-moz-user-select: text;">You can select me.</p>
+    <p>You cannot select me</p>
+    <p style="-moz-user-select: text;">You can also select me.</p>
+  </div>
+#+END_HTML
 * References
 - Range:
   - [[https://developer.mozilla.org/en-US/docs/Web/API/Range][MDN: Web API Interface: Range]]
@@ -69,6 +86,7 @@
 - Selection:
   - [[https://developer.mozilla.org/en-US/docs/Web/API/Selection][MDN: Web API Interface: Selection]]
   - [[http://www.w3.org/TR/selection-api/][Selection API Working Draft]]
+  - [[https://developer.mozilla.org/zh-TW/docs/Web/CSS/user-select][moz-user-select]]
 - Layout debugger
   - ~./mach run -layoutdebug~
 
