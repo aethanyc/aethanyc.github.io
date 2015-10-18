@@ -1,0 +1,370 @@
+#+STARTUP: showeverything hidestars
+#+TITLE: Modern Effective C++ Item 31 & 32
+#+AUTHOR: Ting-Yu Lin
+#+EMAIL: tlin@mozilla.com
+#+DATE: October 21, 2015
+
+#+OPTIONS: reveal_history:t
+#+OPTIONS: H:2 toc:nil num:nil ^:{}
+#+REVEAL_HLEVEL: 1
+#+REVEAL_SPEED: fast
+#+REVEAL_TRANS: fade
+#+REVEAL_THEME: black
+#+REVEAL_ROOT: ../reveal.js
+#+REVEAL_EXTRA_CSS: override.css
+
+* Prelude
+** Background of anonymous functions (lambda)
+- Anonymous functions originate in the work of Alonzo Church in his invention of
+  the lambda calculus in 1936. [[https://en.wikipedia.org/wiki/Anonymous_function][Wikipedia]]
+- Lisp in 1958 uses keyword *lambda* to declare anonymous functions.
+#+BEGIN_SRC lisp
+  (lambda (x y) (+ x y))
+#+END_SRC
+- Ubiquitous in functional programming languages and other languages with
+  first-class functions.
+
+** Anonymous functions in C++
+- C++ introduced *lambda* in C++11
+- "Lambdas make the existing STL algorithms roughly 100x more usable" by [[http://herbsutter.com/elements-of-modern-c-style/][Herb Sutter]].
+
+** Write a function to print elements in a STL container (C++98)
+#+BEGIN_SRC C++
+  template <typename Container>
+  void print_container(const Container& v)
+  {
+    struct Printer {
+      void operator()(const typename Container::value_type& n) const
+      {
+        cout << n << endl;
+      }
+    };
+
+    for_each(v.begin(), v.end(), Printer());
+  }
+#+END_SRC
+- You could use a functor to define a local function, but it is not convenient
+  to do so.
+
+** Write a function to print elements in a STL container (C++11)
+#+BEGIN_SRC C++
+  template <typename Container>
+  void print_container(const Container& v)
+  {
+    for_each(begin(v), end(v),
+             [] (const decltype(*begin(v))& n) { cout << n << endl; });
+  }
+#+END_SRC
+
+** Write a function to print elements in a STL container (C++14)
+- C++14 introduces /generalized lambda/.
+#+BEGIN_SRC C++
+  template <typename Container>
+  void print_container(const Container& v)
+  {
+    for_each(begin(v), end(v),
+             [] (const auto& n) { cout << n << endl; });
+  }
+#+END_SRC
+
+** Definition
+- /lambda expression/: an expression, part of the source code. (compile time)
+#+BEGIN_HTML
+<pre>
+for_each(begin(v), end(v),
+         <em>[] (T n) { cout << n << endl; }</em>);
+</pre>
+#+END_HTML
+- /closure/: the runtime object created by a lambda. Third argument of above
+  code.(runtime)
+- /closure class/: a class from which a closure is instantiated. (compile time)
+
+** Lambda syntax
+#+BEGIN_HTML
+<pre>
+[ capture-list ] ( params ) <b>mutable</b> <i>exception attribute</i> -> ret { body }
+[ capture-list ] ( params ) -> ret { body }
+[ capture-list ] ( params ) { body }
+[ capture-list ] { body }
+</pre>
+#+END_HTML
+- ~[]~: capture nothing
+- ~[=]~: capture all automatic variables by *value* (default capture mode)
+- ~[&]~: capture all automatic variables by *reference* (default capture mode)
+- ~[a, &b]~: capture ~a~ by value and ~b~ by reference
+
+* Item 31: Avoid default capture modes
+- Do no use ~[=]~ and ~[&]~.
+** Things to Remember
+- Default by-reference capture can lead to dangling references.
+- Default by-value capture is susceptible to dangling pointers (especially
+  *this*), and it misleadingly suggests that lambdas are self-contained.
+
+** Define FilterContainer
+#+BEGIN_SRC C++
+  using FilterContainer =                     // see Item 9 for
+    std::vector<std::function<bool(int)>>;    // "using", Item 5
+                                              // for std::function
+
+  FilterContainer filters;                    // filtering funcs
+
+  filters.emplace_back(                       // see Item 42 for
+    [](int value) { return value % 5 == 0; }  // info on
+  );                                          // emplace_back
+#+END_SRC
+
+** Default by-reference capture pitfalls
+#+BEGIN_SRC C++
+  void addFilter()
+  {
+    auto calc1 = computeSomeValue1();
+    auto calc2 = computeSomeValue2();
+    auto divisor = computeDivisor(calc1, calc2);
+
+    filters.emplace_back(                              // danger!
+      [&](int value) { return value % divisor == 0; }  // ref to
+    );                                                 // divisor
+  }                                                    // will
+                                                       // dangle!
+#+END_SRC
+
+** How about make the by-reference capture explicit?
+#+BEGIN_SRC C++
+  filters.emplace_back(
+    [&divisor](int value)                // danger! ref to
+    { return value % divisor == 0; }     // divisor will
+  );                                     // still dangle!
+#+END_SRC
+- Make sure your by-reference captures do not outlive your closure. Explicit
+  naming the capture could make reviewing or refactoring in the future easier.
+
+** Correct solution
+#+BEGIN_SRC C++
+  void addFilter()
+  {
+    auto calc1 = computeSomeValue1();
+    auto calc2 = computeSomeValue2();
+    auto divisor = computeDivisor(calc1, calc2);
+
+    filters.emplace_back(                                 // now
+      [=](int value) { return value % divisor == 0; }     // divisor
+    );                                                    // can't
+  }                                                       // dangle!
+#+END_SRC
+#+BEGIN_SRC C++
+  filters.emplace_back(                                      // Might be
+    [divisor](int value) { return value % divisor == 0; }    // better
+  );
+#+END_SRC
+
+** How about addFilter() as a member function?
+#+BEGIN_SRC C++
+  class Widget {
+  public:
+    …                                  // ctors, etc.
+    void addFilter() const;            // add an entry to filters
+
+  private:
+    int divisor;                       // used in Widget's filter
+  };
+
+  void Widget::addFilter() const
+  {
+    filters.emplace_back(
+      [=](int value) { return value % divisor == 0; }
+    );
+  }
+#+END_SRC
+
+** Bang! Divisor is not captured
+#+BEGIN_SRC C++
+  void Widget::addFilter() const
+  {
+    filters.emplace_back(
+      [divisor](int value)                // error! no local
+      { return value % divisor == 0; }    // divisor to capture
+    );
+  }
+#+END_SRC
+
+** What compiler does is ...
+#+BEGIN_SRC C++
+void Widget::addFilter() const
+{
+  filters.emplace_back(
+    [=](int value) { return value % divisor == 0; }
+  );
+}
+#+END_SRC
+#+BEGIN_SRC C++
+  void Widget::addFilter() const
+  {
+    auto currentObjectPtr = this;
+
+    filters.emplace_back(
+      [currentObjectPtr](int value)
+      { return value % currentObjectPtr->divisor == 0; }
+    );
+  }
+#+END_SRC
+
+** Correct solution
+#+BEGIN_SRC C++
+  void Widget::addFilter() const
+  {
+    auto divisorCopy = divisor;                // copy data member
+
+    filters.emplace_back(
+      [=](int value)                           // capture the copy
+      { return value % divisorCopy == 0; }     // use the copy
+    );
+  }
+#+END_SRC
+- Make divisor its own life time instead of depending on Widget's life time.
+
+** Correct solution (C++14)
+- Use generalized lambda capture (Item 32).
+#+BEGIN_SRC C++
+  void Widget::addFilter() const
+  {
+    filters.emplace_back(               // C++14:
+      [divisor = divisor](int value)    // copy divisor to closure
+      { return value % divisor == 0; }  // use the copy
+    );
+  }
+#+END_SRC
+
+** Warning: static variables will not be captured
+#+BEGIN_SRC C++
+  void addDivisorFilter()
+  {
+    static auto calc1 = computeSomeValue1();      // now static
+    static auto calc2 = computeSomeValue2();      // now static
+
+    static auto divisor =                         // now static
+      computeDivisor(calc1, calc2);
+
+    filters.emplace_back(
+      [=](int value)                     // captures nothing!
+      { return value % divisor == 0; }   // refers to above static
+    );
+
+    ++divisor;                           // modify divisor
+  }
+#+END_SRC
+- Still compiles using *[]* instead of *[=]*.
+
+** Things to Remember
+- Default by-reference capture can lead to dangling references.
+- Default by-value capture is susceptible to dangling pointers (especially
+  *this*), and it misleadingly suggests that lambdas are self-contained.
+
+* Item 32: Use init capture to move objects into closures
+** Shortcoming in C++11 lambda capture
+- If you have a *move-only* object (e.g., a std::unique_ptr), you cannot get it
+  into a closure in C++11.
+- C++14 resolve this by init capture (a.k.a. generalized lambda captures). You
+  have to specify:
+  1. *the name of a data member* in the closure class generated from the lambda and
+  2. *an expression* initializing that data member.
+
+** Example: init capture
+#+BEGIN_SRC C++
+class Widget {                          // some useful type
+public:
+
+  bool isValidated() const;
+  bool isProcessed() const;
+  bool isArchived() const;
+
+private:
+  …
+};
+
+
+auto pw = std::make_unique<Widget>();   // create Widget; see
+                                        // Item 21 for info on
+                                        // std::make_unique
+
+…                                       // configure *pw
+
+auto func = [pw = std::move(pw)]               // init data mbr
+            { return pw->isValidated()         // in closure w/
+                     && pw->isArchived(); };   // std::move(pw)
+#+END_SRC
+
+** Example: init capture
+#+BEGIN_SRC C++
+  auto func = [pw = std::make_unique<Widget>()]  // init data mbr
+              { return pw->isValidated()         // in closure w/
+                       && pw->isArchived(); };   // result of call
+                                                 // to make_unique
+#+END_SRC
+
+** Example: move capture in C++14
+#+BEGIN_HTML
+<pre>
+<em>std::vector&lt;double&gt; data;</em>                 // object to be moved
+                                          // into closure
+
+…                                         // populate data
+
+auto func = [<em>data = std::move(data)</em>]      // C++14 init capture
+            { /* uses of data */ };
+</pre>
+#+END_HTML
+
+** Example: emulate move capture in C++11
+#+BEGIN_HTML
+<pre>
+std::vector&lt;double&gt; data;                 // as above
+
+…                                         // as above
+
+auto func =
+  std::bind(                              // C++11 emulation
+    [](<em>const std::vector&lt;double&gt;</em>& <em>data</em>)   // of init capture
+    { /* uses of data */ },
+    <em>std::move(data)</em>
+  );
+</pre>
+#+END_HTML
+- ~std::bind()~
+  - First argument: callable object
+  - Subsequent arguments: lvalues are copy constructed; rvalues are move constructed.
+
+** Example: emulate move capture of mutable lambda in C++11
+#+BEGIN_HTML
+<pre>
+auto func =
+  std::bind(                               // C++11 emulation
+    [](<em>std::vector&lt;double&gt;</em>& data) <em>mutable</em>  // of init capture
+    { /* uses of data */ },                // for mutable lambda
+    std::move(data)
+  );
+</pre>
+#+END_HTML
+
+** Example: emulate move capture in C++11 (2)
+#+BEGIN_HTML
+<pre>
+auto func = [<em>pw</em> = <em>std::make_unique&lt;Widget&gt;()</em>]    // as before,
+            { return pw-&gt;isValidated()           // create pw
+                     && pw-&gt;isArchived(); };     // in closure
+</pre>
+#+END_HTML
+#+BEGIN_HTML
+<pre>
+auto func = std::bind(
+              [](<em>const std::unique_ptr&lt;Widget&gt;</em>& <em>pw</em>)
+              { return pw-&gt;isValidated()
+                     && pw-&gt;isArchived(); },
+              <em>std::make_unique&lt;Widget&gt;()</em>
+            );
+</pre>
+#+END_HTML
+- Spoiler: Item 34: Prefer lambdas to ~std::bind~.
+
+** Things to Remember
+- Use C++14’s init capture to move objects into closures.
+- In C++11, emulate init capture via hand-written classes or ~std::bind~.
