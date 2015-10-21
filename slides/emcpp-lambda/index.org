@@ -72,11 +72,11 @@
 #+BEGIN_HTML
 <pre>
 for_each(begin(v), end(v),
-         <em>[] (T n) { cout << n << endl; }</em>);
+         <em>[] (const auto& n) { cout << n << endl; }</em>);
 </pre>
 #+END_HTML
 - /closure/: the runtime object created by a lambda. Third argument of above
-  code.(runtime)
+  code. (runtime)
 - /closure class/: a class from which a closure is instantiated. (compile time)
 
 ** Lambda syntax
@@ -89,13 +89,13 @@ for_each(begin(v), end(v),
 </pre>
 #+END_HTML
 - ~[]~: capture nothing
-- ~[=]~: capture all automatic variables by *value* (default capture mode)
-- ~[&]~: capture all automatic variables by *reference* (default capture mode)
+- ~[=]~: capture all /automatic/ variables used by *value* (default capture mode)
+- ~[&]~: capture all /automatic/ variables used by *reference* (default capture mode)
 - ~[a, &b]~: capture ~a~ by value and ~b~ by reference
 
 * Item 31: Avoid default capture modes
-- Do no use ~[=]~ and ~[&]~.
-** Things to Remember
+- Do not use ~[=]~ and ~[&]~.
+** Things to remember
 - Default by-reference capture can lead to dangling references.
 - Default by-value capture is susceptible to dangling pointers (especially
   *this*), and it misleadingly suggests that lambdas are self-contained.
@@ -222,18 +222,6 @@ void Widget::addFilter() const
 #+END_SRC
 - Make divisor its own life time instead of depending on Widget's life time.
 
-** Correct solution (C++14)
-- Use generalized lambda capture (Item 32).
-#+BEGIN_SRC C++
-  void Widget::addFilter() const
-  {
-    filters.emplace_back(               // C++14:
-      [divisor = divisor](int value)    // copy divisor to closure
-      { return value % divisor == 0; }  // use the copy
-    );
-  }
-#+END_SRC
-
 ** Warning: static variables will not be captured
 #+BEGIN_SRC C++
   void addDivisorFilter()
@@ -254,7 +242,7 @@ void Widget::addFilter() const
 #+END_SRC
 - Still compiles using *[]* instead of *[=]*.
 
-** Things to Remember
+** Things to remember
 - Default by-reference capture can lead to dangling references.
 - Default by-value capture is susceptible to dangling pointers (especially
   *this*), and it misleadingly suggests that lambdas are self-contained.
@@ -267,6 +255,30 @@ void Widget::addFilter() const
   have to specify:
   1. *the name of a data member* in the closure class generated from the lambda and
   2. *an expression* initializing that data member.
+
+** Widget::addFilter() in C++14
+- C++11
+#+BEGIN_SRC C++
+  void Widget::addFilter() const
+  {
+    auto divisorCopy = divisor;                // copy data member
+
+    filters.emplace_back(
+      [=](int value)                           // capture the copy
+      { return value % divisorCopy == 0; }     // use the copy
+    );
+  }
+#+END_SRC
+- Use generalized lambda capture in C++14
+#+BEGIN_SRC C++
+  void Widget::addFilter() const
+  {
+    filters.emplace_back(               // C++14:
+      [divisor = divisor](int value)    // copy divisor to closure
+      { return value % divisor == 0; }  // use the copy
+    );
+  }
+#+END_SRC
 
 ** Example: init capture
 #+BEGIN_SRC C++
@@ -365,6 +377,25 @@ auto func = std::bind(
 #+END_HTML
 - Spoiler: Item 34: Prefer lambdas to ~std::bind~.
 
-** Things to Remember
+** Things to remember
 - Use C++14’s init capture to move objects into closures.
 - In C++11, emulate init capture via hand-written classes or ~std::bind~.
+
+** Accumulator generator
+- Write a function that generates accumulators-- a function that
+  takes a number n, and returns a function that takes another number i and
+  returns n incremented by i. See appendix in [[http://www.paulgraham.com/icad.html][Revenge of the nerds]].
+- Common Lisp:
+  #+BEGIN_SRC lisp
+    (defun foo (n) (lambda (i) (incf n i)))
+  #+END_SRC
+- C++14
+  #+BEGIN_SRC C++
+    auto accumulater_gen(int init) {
+      return [init] (int x) mutable { return init += x; };
+    }
+
+    auto accumulator = foo(100);
+    cout << accumulator(4) << endl;
+    cout << accumulator(4) << endl;
+  #+END_SRC

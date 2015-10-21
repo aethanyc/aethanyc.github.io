@@ -128,11 +128,11 @@ to do so.</li>
 </ul>
 <pre>
 for_each(begin(v), end(v),
-         <em>[] (T n) { cout < n < endl; }</em>);
+         <em>[] (const auto& n) { cout < n < endl; }</em>);
 </pre>
 <ul>
 <li><i>closure</i>: the runtime object created by a lambda. Third argument of above
-code.(runtime)</li>
+code. (runtime)</li>
 <li><i>closure class</i>: a class from which a closure is instantiated. (compile time)</li>
 
 </ul>
@@ -148,8 +148,8 @@ code.(runtime)</li>
 </pre>
 <ul>
 <li><code>[]</code>: capture nothing</li>
-<li><code>[=]</code>: capture all automatic variables by <b>value</b> (default capture mode)</li>
-<li><code>[&amp;]</code>: capture all automatic variables by <b>reference</b> (default capture mode)</li>
+<li><code>[=]</code>: capture all <i>automatic</i> variables used by <b>value</b> (default capture mode)</li>
+<li><code>[&amp;]</code>: capture all <i>automatic</i> variables used by <b>reference</b> (default capture mode)</li>
 <li><code>[a, &amp;b]</code>: capture <code>a</code> by value and <code>b</code> by reference</li>
 
 </ul>
@@ -157,15 +157,15 @@ code.(runtime)</li>
 </section>
 </section>
 <section>
-<section id="slide-orgheadline21">
-<h2 id="orgheadline21">Item 31: Avoid default capture modes</h2>
+<section id="slide-orgheadline20">
+<h2 id="orgheadline20">Item 31: Avoid default capture modes</h2>
 <ul>
-<li>Do no use <code>[=]</code> and <code>[&amp;]</code>.</li>
+<li>Do not use <code>[=]</code> and <code>[&amp;]</code>.</li>
 
 </ul>
 </section>
 <section id="slide-orgheadline9">
-<h3 id="orgheadline9">Things to Remember</h3>
+<h3 id="orgheadline9">Things to remember</h3>
 <ul>
 <li>Default by-reference capture can lead to dangling references.</li>
 <li>Default by-value capture is susceptible to dangling pointers (especially
@@ -339,26 +339,7 @@ naming the capture could make reviewing or refactoring in the future easier.</li
 
 </section>
 <section id="slide-orgheadline18">
-<h3 id="orgheadline18">Correct solution (C++14)</h3>
-<ul>
-<li>Use generalized lambda capture (Item 32).</li>
-
-</ul>
-<div class="org-src-container">
-
-<pre  class="src src-C++"><span style="color: #7CB8BB;">void</span> <span style="color: #BFEBBF;">Widget</span>::<span style="color: #93E0E3;">addFilter</span><span style="color: #DCDCCC;">()</span> <span style="color: #F0DFAF; font-weight: bold;">const</span>
-<span style="color: #DCDCCC;">{</span>
-  filters.emplace_back<span style="color: #BFEBBF;">(</span>               <span style="color: #5F7F5F;">// </span><span style="color: #7F9F7F;">C++14:</span>
-    <span style="color: #D0BF8F;">[</span>divisor = divisor<span style="color: #D0BF8F;">](</span><span style="color: #7CB8BB;">int</span> <span style="color: #DFAF8F;">value</span><span style="color: #D0BF8F;">)</span>    <span style="color: #5F7F5F;">// </span><span style="color: #7F9F7F;">copy divisor to closure</span>
-    <span style="color: #D0BF8F;">{</span> <span style="color: #F0DFAF; font-weight: bold;">return</span> value % divisor == 0; <span style="color: #D0BF8F;">}</span>  <span style="color: #5F7F5F;">// </span><span style="color: #7F9F7F;">use the copy</span>
-  <span style="color: #BFEBBF;">)</span>;
-<span style="color: #DCDCCC;">}</span>
-</pre>
-</div>
-
-</section>
-<section id="slide-orgheadline19">
-<h3 id="orgheadline19">Warning: static variables will not be captured</h3>
+<h3 id="orgheadline18">Warning: static variables will not be captured</h3>
 <div class="org-src-container">
 
 <pre  class="src src-C++"><span style="color: #7CB8BB;">void</span> <span style="color: #93E0E3;">addDivisorFilter</span><span style="color: #DCDCCC;">()</span>
@@ -384,8 +365,8 @@ naming the capture could make reviewing or refactoring in the future easier.</li
 </ul>
 
 </section>
-<section id="slide-orgheadline20">
-<h3 id="orgheadline20">Things to Remember</h3>
+<section id="slide-orgheadline19">
+<h3 id="orgheadline19">Things to remember</h3>
 <ul>
 <li>Default by-reference capture can lead to dangling references.</li>
 <li>Default by-value capture is susceptible to dangling pointers (especially
@@ -396,12 +377,12 @@ naming the capture could make reviewing or refactoring in the future easier.</li
 </section>
 </section>
 <section>
-<section id="slide-orgheadline30">
-<h2 id="orgheadline30">Item 32: Use init capture to move objects into closures</h2>
-<div class="outline-text-2" id="text-orgheadline30">
+<section id="slide-orgheadline31">
+<h2 id="orgheadline31">Item 32: Use init capture to move objects into closures</h2>
+<div class="outline-text-2" id="text-orgheadline31">
 </div></section>
-<section id="slide-orgheadline22">
-<h3 id="orgheadline22">Shortcoming in C++11 lambda capture</h3>
+<section id="slide-orgheadline21">
+<h3 id="orgheadline21">Shortcoming in C++11 lambda capture</h3>
 <ul>
 <li>If you have a <b>move-only</b> object (e.g., a std::unique_ptr), you cannot get it
 into a closure in C++11.</li>
@@ -414,6 +395,42 @@ have to specify:
 </ol></li>
 
 </ul>
+
+</section>
+<section id="slide-orgheadline22">
+<h3 id="orgheadline22">Widget::addFilter() in C++14</h3>
+<ul>
+<li>C++11</li>
+
+</ul>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #7CB8BB;">void</span> <span style="color: #BFEBBF;">Widget</span>::<span style="color: #93E0E3;">addFilter</span><span style="color: #DCDCCC;">()</span> <span style="color: #F0DFAF; font-weight: bold;">const</span>
+<span style="color: #DCDCCC;">{</span>
+  <span style="color: #F0DFAF; font-weight: bold;">auto</span> <span style="color: #7CB8BB;">divisorCopy</span> = divisor;                <span style="color: #5F7F5F;">// </span><span style="color: #7F9F7F;">copy data member</span>
+
+  filters.emplace_back<span style="color: #BFEBBF;">(</span>
+    <span style="color: #D0BF8F;">[</span>=<span style="color: #D0BF8F;">](</span><span style="color: #7CB8BB;">int</span> <span style="color: #DFAF8F;">value</span><span style="color: #D0BF8F;">)</span>                           <span style="color: #5F7F5F;">// </span><span style="color: #7F9F7F;">capture the copy</span>
+    <span style="color: #D0BF8F;">{</span> <span style="color: #F0DFAF; font-weight: bold;">return</span> value % divisorCopy == 0; <span style="color: #D0BF8F;">}</span>     <span style="color: #5F7F5F;">// </span><span style="color: #7F9F7F;">use the copy</span>
+  <span style="color: #BFEBBF;">)</span>;
+<span style="color: #DCDCCC;">}</span>
+</pre>
+</div>
+<ul>
+<li>Use generalized lambda capture in C++14</li>
+
+</ul>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #7CB8BB;">void</span> <span style="color: #BFEBBF;">Widget</span>::<span style="color: #93E0E3;">addFilter</span><span style="color: #DCDCCC;">()</span> <span style="color: #F0DFAF; font-weight: bold;">const</span>
+<span style="color: #DCDCCC;">{</span>
+  filters.emplace_back<span style="color: #BFEBBF;">(</span>               <span style="color: #5F7F5F;">// </span><span style="color: #7F9F7F;">C++14:</span>
+    <span style="color: #D0BF8F;">[</span>divisor = divisor<span style="color: #D0BF8F;">](</span><span style="color: #7CB8BB;">int</span> <span style="color: #DFAF8F;">value</span><span style="color: #D0BF8F;">)</span>    <span style="color: #5F7F5F;">// </span><span style="color: #7F9F7F;">copy divisor to closure</span>
+    <span style="color: #D0BF8F;">{</span> <span style="color: #F0DFAF; font-weight: bold;">return</span> value % divisor == 0; <span style="color: #D0BF8F;">}</span>  <span style="color: #5F7F5F;">// </span><span style="color: #7F9F7F;">use the copy</span>
+  <span style="color: #BFEBBF;">)</span>;
+<span style="color: #DCDCCC;">}</span>
+</pre>
+</div>
 
 </section>
 <section id="slide-orgheadline23">
@@ -529,10 +546,42 @@ auto func = std::bind(
 
 </section>
 <section id="slide-orgheadline29">
-<h3 id="orgheadline29">Things to Remember</h3>
+<h3 id="orgheadline29">Things to remember</h3>
 <ul>
 <li>Use C++14’s init capture to move objects into closures.</li>
 <li>In C++11, emulate init capture via hand-written classes or <code>std::bind</code>.</li>
+
+</ul>
+
+</section>
+<section id="slide-orgheadline30">
+<h3 id="orgheadline30">Accumulator generator</h3>
+<ul>
+<li>Write a function that generates accumulators&#x2013; a function that
+takes a number n, and returns a function that takes another number i and
+returns n incremented by i. See appendix in <a href="http://www.paulgraham.com/icad.html">Revenge of the nerds</a>.</li>
+<li><p>
+Common Lisp:
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-lisp"><span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">defun</span> <span style="color: #93E0E3;">foo</span> <span style="color: #BFEBBF;">(</span>n<span style="color: #BFEBBF;">)</span> <span style="color: #BFEBBF;">(</span><span style="color: #F0DFAF; font-weight: bold;">lambda</span> <span style="color: #D0BF8F;">(</span>i<span style="color: #D0BF8F;">)</span> <span style="color: #D0BF8F;">(</span>incf n i<span style="color: #D0BF8F;">)</span><span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
+</pre>
+</div></li>
+<li><p>
+C++14
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #F0DFAF; font-weight: bold;">auto</span> <span style="color: #93E0E3;">accumulater_gen</span><span style="color: #DCDCCC;">(</span><span style="color: #7CB8BB;">int</span> <span style="color: #DFAF8F;">init</span><span style="color: #DCDCCC;">)</span> <span style="color: #DCDCCC;">{</span>
+  <span style="color: #F0DFAF; font-weight: bold;">return</span> <span style="color: #BFEBBF;">[</span>init<span style="color: #BFEBBF;">]</span> <span style="color: #BFEBBF;">(</span><span style="color: #7CB8BB;">int</span> <span style="color: #DFAF8F;">x</span><span style="color: #BFEBBF;">)</span> <span style="color: #F0DFAF; font-weight: bold;">mutable</span> <span style="color: #BFEBBF;">{</span> <span style="color: #F0DFAF; font-weight: bold;">return</span> init += x; <span style="color: #BFEBBF;">}</span>;
+<span style="color: #DCDCCC;">}</span>
+
+<span style="color: #F0DFAF; font-weight: bold;">auto</span> <span style="color: #7CB8BB;">accumulator</span> = foo<span style="color: #DCDCCC;">(</span>100<span style="color: #DCDCCC;">)</span>;
+cout &lt;&lt; accumulator<span style="color: #DCDCCC;">(</span>4<span style="color: #DCDCCC;">)</span> &lt;&lt; endl;
+cout &lt;&lt; accumulator<span style="color: #DCDCCC;">(</span>4<span style="color: #DCDCCC;">)</span> &lt;&lt; endl;
+</pre>
+</div></li>
 
 </ul>
 </section>
