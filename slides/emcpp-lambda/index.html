@@ -573,8 +573,8 @@ C++14
 </p>
 <div class="org-src-container">
 
-<pre  class="src src-C++"><span style="color: #F0DFAF; font-weight: bold;">auto</span> <span style="color: #93E0E3;">accumulater_gen</span><span style="color: #DCDCCC;">(</span><span style="color: #7CB8BB;">int</span> <span style="color: #DFAF8F;">init</span><span style="color: #DCDCCC;">)</span> <span style="color: #DCDCCC;">{</span>
-  <span style="color: #F0DFAF; font-weight: bold;">return</span> <span style="color: #BFEBBF;">[</span>init<span style="color: #BFEBBF;">]</span> <span style="color: #BFEBBF;">(</span><span style="color: #7CB8BB;">int</span> <span style="color: #DFAF8F;">x</span><span style="color: #BFEBBF;">)</span> <span style="color: #F0DFAF; font-weight: bold;">mutable</span> <span style="color: #BFEBBF;">{</span> <span style="color: #F0DFAF; font-weight: bold;">return</span> init += x; <span style="color: #BFEBBF;">}</span>;
+<pre  class="src src-C++"><span style="color: #F0DFAF; font-weight: bold;">auto</span> <span style="color: #93E0E3;">foo</span><span style="color: #DCDCCC;">(</span><span style="color: #7CB8BB;">int</span> <span style="color: #DFAF8F;">n</span><span style="color: #DCDCCC;">)</span> <span style="color: #DCDCCC;">{</span>
+  <span style="color: #F0DFAF; font-weight: bold;">return</span> <span style="color: #BFEBBF;">[</span>n<span style="color: #BFEBBF;">]</span> <span style="color: #BFEBBF;">(</span><span style="color: #7CB8BB;">int</span> <span style="color: #DFAF8F;">i</span><span style="color: #BFEBBF;">)</span> <span style="color: #F0DFAF; font-weight: bold;">mutable</span> <span style="color: #BFEBBF;">{</span> <span style="color: #F0DFAF; font-weight: bold;">return</span> n += i; <span style="color: #BFEBBF;">}</span>;
 <span style="color: #DCDCCC;">}</span>
 
 <span style="color: #F0DFAF; font-weight: bold;">auto</span> <span style="color: #7CB8BB;">accumulator</span> = foo<span style="color: #DCDCCC;">(</span>100<span style="color: #DCDCCC;">)</span>;

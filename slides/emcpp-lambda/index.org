@@ -391,8 +391,8 @@ auto func = std::bind(
   #+END_SRC
 - C++14
   #+BEGIN_SRC C++
-    auto accumulater_gen(int init) {
-      return [init] (int x) mutable { return init += x; };
+    auto foo(int n) {
+      return [n] (int i) mutable { return n += i; };
     }
 
     auto accumulator = foo(100);
